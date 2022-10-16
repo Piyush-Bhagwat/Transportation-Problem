@@ -47,20 +47,30 @@
                         </div>
 
                         <div class="InputBox">
-                            <button onclick="createGrid(this)">Create Grid</button>
+                            <button onclick="createGrid()">Create Grid</button>
+
+                            <button onclick="display()">Solve</button>
                         </div>
 
                         <div class="InputBox"><h4>Answer:</h4></div>
                     </div>
 
                     <div class="data col">
-                        <h3>Table: </h3>
+                        <h3>Table:</h3>
 
-                        <table>
-                            <tbody>
-                            </tbody>
+                        <table class="table">
+                            <tbody></tbody>
                         </table>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="Answer">
+            <div class="container">
+                <div class="row">
+                    <div class="col" id="solutionDiv"></div>
+                    <div class="col">hello</div>
                 </div>
             </div>
         </section>
