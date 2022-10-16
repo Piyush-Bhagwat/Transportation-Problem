@@ -1,0 +1,20 @@
+#TitleBar{
+    background-color: rgb(211, 211, 211);
+    padding: 3em;
+    text-align: center;
+}
+
+
+h1{
+    font-size: 5em;
+    font-weight: 700;
+    color: rgb(36, 36, 36);
+}
+
+/* .value{
+    padding: 0px 40px;
+} */
+
+.InputBox{
+    padding: 20px 0px;
+}
