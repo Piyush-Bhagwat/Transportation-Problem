@@ -7,6 +7,7 @@ var col = 0;
 
 var myInterval = setInterval(update, 1000);
 
+var method = document.querySelector("select").value;
 // Data Variables
 
 var data = [];
@@ -163,6 +164,9 @@ function addCol(matter, head, cls) {
 }
 
 function display() {
+    clearInterval(myInterval);
+    supplyDemandAdjust();
+
     toAdd = "";
 
     toAdd += `<table class="table table-striped">`;
@@ -217,4 +221,63 @@ function display() {
 
     toAdd += "</table>";
     ansEl.innerHTML += toAdd;
+
+    delete i;
+    delete j;
+}
+
+
+
+
+// Logics--------------------------------------------------------------------------------------------------------------------
+
+function supplyDemandAdjust(){
+    let sup=0;
+    let dem = 0;
+
+    for(i=0; i<row-1; i++){
+        sup += parseInt(supply[i]);
+    }
+    for(i=0; i<col-1; i++){
+        dem += parseInt(demand[i]);
+    }
+
+    if(sup == dem){
+        ansEl.innerHTML += `<h4>This Problem is Balanced(${dem})</h4>`;
+        return;
+    }
+
+    if(dem<sup){
+        toAdd = sup - dem;
+        for(i=0; i<row; i++){       
+            if(i == row-1){
+                demand.push(toAdd);
+                continue;
+            }
+            data[i][col-1] = 0;
+        }
+        
+        col+=1;
+        // cout<<"The demand("<<demand<<") < Supply("<<supply<<") so we have added a dummy column. To adjust Demand by "<<toAdd<<endl;
+        ansEl.innerHTML += `<h5>The demand(${dem}) < Supply(${sup}) so We have added a dummy column. To adjust Demand by ${toAdd}</h5>`;
+    }
+    else if(sup<dem){
+        toAdd = dem - sup;
+
+        data.push([]);
+        row++;
+
+        for(i=0; i<col; i++){
+            if(i == col-1){
+                supply.push(toAdd);
+                continue;
+            }
+            data[row-2][i] = 0;
+        }
+
+        // cout<<"The Supply("<<supply<<") < Demand("<<demand<<") so we have added a dummy row. To adjust supply by "<<toAdd<<endl;
+        ansEl.innerHTML += `<h5>The demand(${dem}) > Supply(${sup}) so We have added a dummy Row. To adjust Supply by ${toAdd}</h5>`;
+    }
+
+
 }
