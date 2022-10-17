@@ -1,28 +1,43 @@
 body{
     text-align: center;
+    color: #D5E5F7;
+    background:#141E27;
+    font-family: 'Roboto', sans-serif;
 }
 
 #TitleBar{
-    background-color: rgb(211, 211, 211);
-    padding: 3em;
+    background-color: #203239;
+    padding: 2% 5%;
     text-align: center;
 }
 
 #solutionDiv{
     padding: 30px;
 }
+
 h1{
-    font-size: 5em;
-    font-weight: 700;
-    color: rgb(36, 36, 36);
+    font-size: 6em;
+    font-weight: 900;
+    line-height: 1.5;
+    font-family: 'Roboto', sans-serif;
 }
 
 /* .value{
     padding: 0px 40px;
 } */
 
+.titleContent{
+    padding: 4% 0%;
+}
+
+.titleImg{
+    width: 90%;
+    border-radius: 3%;
+}
+
 .InputBox{
-    padding: 20px 0px;
+    padding: 20px 20px;
+    display: inline-block;
 }
 
 .table{
@@ -33,16 +48,30 @@ h1{
 .contentBox{
     margin: 10px 20px;
     padding: 20px;
-    border: 3px solid rgb(132, 124, 114);
+    border: 3px solid #3c565e;
     border-radius: 10px;
-    background-color: antiquewhite;
+    background-color: #203239;
 }
 
 .output{
-    background-color: #e2c9a7;
+    background-color: #314a53;
     border-radius: 8px;
-    border: 3px solid #807360;
+    border: 3px solid #4d6a75;
     
+}
+
+.gridInput{
+    height: 40px;
+    width: 40px;
+    font-size: 1.2em;
+}
+
+.actionButton{
+    padding: 30px;
+}
+
+.btn{
+    margin: 2px 10px;
 }
 
 input{
@@ -55,3 +84,4 @@ input{
 
     border-radius: 9px;
 }
+

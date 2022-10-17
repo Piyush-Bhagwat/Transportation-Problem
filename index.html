@@ -18,24 +18,37 @@
             crossorigin="anonymous"
         ></script>
 
+        <!-- fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;900&display=swap" rel="stylesheet">
+
         <link rel="stylesheet" href="Css/Style.css" />
     </head>
     <body>
         <div id="TitleBar">
-            <h1>Transportation Problem Solver</h1>
+            <div class="row titleContent">
+                <div class="col-lg-6">
+                    <h1>Transportation Problem Solver</h1>
+                </div>
+                <div class="col-lg-6">
+                    <img class="titleImg" src="images/titleImage.webp" alt="" />
+                </div>
+            </div>
+            
         </div>
 
         <div class="container">
             <div class="row">
                 <div class="col"></div>
 
-                <div class="col-8">
+                <div class="col-md-auto">
                     <div class="contentBox">
                         <div id="Input">
                             <div class="InputBox"> <!--GridInput-->
                                 <h4>Grid Size:</h4>
-                                <input type="text" id="rowInp" /> X
-                                <input type="text" id="colInp" />
+                                <input type="text" id="rowInp" class="gridInput" /> X
+                                <input type="text" id="colInp" class="gridInput" />
                             </div>
 
                             <div class="InputBox"> <!--MethodButton-->
@@ -49,18 +62,19 @@
                                 </select>
                             </div>
 
-                            <div class="InputBox"> <!--Buttons-->
-                                <button onclick="createGrid()">
-                                    Create Grid
-                                </button>
-
-                                <button onclick="solve()">Solve</button>
-                            </div>
-
                             <div class="InputBox"> <!--AnswerBox-->
                                 <h4 >Answer:</h4>
                                 <h4 id="ansText"></h4>
                             </div>
+
+                            <div class="actionButton"> <!--Buttons-->
+                                <button onclick="createGrid()" class="btn btn-outline-light">
+                                    Create Grid
+                                </button>
+
+                                <button onclick="solve()" class="btn btn-outline-light">Solve</button>
+                            </div>
+
                         </div>
 
                         <div> <!--DataInputTable-->

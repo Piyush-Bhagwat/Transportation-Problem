@@ -46,10 +46,10 @@ function max(a, b){
     }
     return a;
 }
+
 // getting the Inputs--------------------------------------------------------------------------------------------------------
 
-function initalizeData() {
-    //initializes the data arrays with 0
+function initalizeData() { //initializes the data arrays with 0
     for (i = 0; i < row - 1; i++) {
         data[i] = [];
         for (j = 0; j < col - 1; j++) {
@@ -97,8 +97,7 @@ function getVal(r, c) {//get values fromt the input boxes
     return x.value;
 }
 
-function inpBox(name) {
-    //maeks an input bo with proper ID
+function inpBox(name) { //maeks an input bo with proper ID
     return `<input type="text" id=${name}>`;
 }
 
@@ -106,9 +105,10 @@ function createGrid() {
     tbodyEl.innerHTML = "";
     row = parseInt(document.getElementById("rowInp").value) + 1;
     col = parseInt(document.getElementById("colInp").value) + 1;
+
     rowAvil = row-1;
     colAvil = col-1;
-
+    
     initalizeData();
 
     for (j = 1; j <= row; j++) {
@@ -266,9 +266,6 @@ function display() {
     delete j;
 }
 
-
-
-
 // Logics--------------------------------------------------------------------------------------------------------------------
 
 function getSupply(pos){
@@ -278,6 +275,7 @@ function getSupply(pos){
 function setSupply(pos, valToSub){
     supply[pos]  -= valToSub;
 }
+
 function getDemand(pos){
     return parseInt(demand[pos]);
 }
@@ -294,11 +292,19 @@ function getRemaint(r, c){
     return max(getSupply(r), getDemand(c));
 }
 
-function solve(){
+function reset(){
     ansEl.innerHTML = '';
     allocEl.innerHTML = '';
     ansTextEl.innerHTML = '';
+    ans=0;
+    row = parseInt(document.getElementById("rowInp").value) + 1;
+    col = parseInt(document.getElementById("colInp").value) + 1;
+    allocationVec = [];  
+}
 
+function solve(){
+    
+    reset();
     update(); //Problem: this wont update second time cause the supplyDemamndAdjust will change the no of row and col
     supplyDemandAdjust();
     display();
@@ -784,4 +790,6 @@ function showAnswer(){
 
     allocEl.innerHTML += `<h2>The final answer we get is ${ans}</h2>`;
     ansTextEl.innerHTML += `${ans}`;
+    toAdd="";
+    delete toAdd;
 }
