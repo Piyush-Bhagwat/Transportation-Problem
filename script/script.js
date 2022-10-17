@@ -3,9 +3,11 @@ const tbodyEl = document.querySelector("tbody");
 const ansEl = document.querySelector("#solutionDiv");
 var row = 0;
 var col = 0;
-// var inpBox = `<input type="text" name>`;
+var rowAvil;
+var colAvil;
+var ans=0;
 
-var myInterval = setInterval(update, 1000);
+// var inpBox = `<input type="text" name>`;
 
 var method = document.querySelector("select").value;
 // Data Variables
@@ -13,6 +15,19 @@ var method = document.querySelector("select").value;
 var data = [];
 var supply = [];
 var demand = [];
+var allocationVec = [];
+
+
+
+function min(a, b){
+    if(a<b){
+        return a;
+    }
+    else if(a>b){
+        return b;
+    }
+    return a;
+}
 
 // getting the Inputs--------------------------------------------------------------------------------------------------------
 
@@ -38,8 +53,7 @@ function initalizeData() {
     delete j;
 }
 
-function update() {
-    //updates the arrays with right values
+function update() { //updates the arrays with right values
     for (i = 0; i < row - 1; i++) {
         data[i] = [];
         for (j = 0; j < col - 1; j++) {
@@ -57,12 +71,9 @@ function update() {
         x = getVal("d", i + 1);
         demand[i] = x;
     }
-
-    // alert(data);
 }
 
-function getVal(r, c) {
-    //get values fromt the input boxes
+function getVal(r, c) {//get values fromt the input boxes
     n = "" + r + c;
     x = document.getElementById(n);
     return x.value;
@@ -77,6 +88,8 @@ function createGrid() {
     tbodyEl.innerHTML = "";
     row = parseInt(document.getElementById("rowInp").value) + 1;
     col = parseInt(document.getElementById("colInp").value) + 1;
+    rowAvil = row-1;
+    colAvil = col-1;
 
     initalizeData();
 
@@ -164,9 +177,6 @@ function addCol(matter, head, cls) {
 }
 
 function display() {
-    clearInterval(myInterval);
-    supplyDemandAdjust();
-
     toAdd = "";
 
     toAdd += `<table class="table table-striped">`;
@@ -231,6 +241,33 @@ function display() {
 
 // Logics--------------------------------------------------------------------------------------------------------------------
 
+function getSupply(pos){
+    return supply[pos];
+}
+
+function setSupply(pos, valToSub){
+    supply[pos]  -= valToSub;
+}
+function getDemand(pos){
+    return demand[pos];
+}
+
+function setDemand(pos, valToSub){
+    demand[pos] -= valToSub;
+}
+
+function getAllocations(r,c){ //get the allocation the pirticular cell
+    return min(supply[r], demand[c]);
+}
+
+function solve(){
+    update();
+    supplyDemandAdjust();
+    display();
+
+    NorthWestMethod();
+}
+
 function supplyDemandAdjust(){
     let sup=0;
     let dem = 0;
@@ -279,5 +316,70 @@ function supplyDemandAdjust(){
         ansEl.innerHTML += `<h5>The demand(${dem}) > Supply(${sup}) so We have added a dummy Row. To adjust Supply by ${toAdd}</h5>`;
     }
 
+    delete i;
+}
 
+function getNWC(){ //get the northWestCorner cell
+    pr = [-1, -1];
+    for(i=0; i<(row-1); i++){
+        for(j=0; j<(col-1); j++){
+            if(data[i][j] != -1){
+                pr[0]=i;
+                pr[1]=j;
+                return pr;
+            }
+        }
+    }
+    delete i;
+    delete j;
+    return pr;
+}
+
+function deleteCol(c){
+    for(i=0; i<row-1; i++){
+        data[i][c]=-1;
+   }
+   demand[c]=-1;
+   delete i;
+}
+
+function deleteRow(r){
+    for( i=0; i<col-1; i++){
+        data[r][i]=-1;
+    }
+    supply[r]=-1;
+    delete i;
+    delete r;
+}
+
+function operation(r, c){ //Main operation on indivual Cells
+    Allocation = getAllocations(r, c);
+    ans += (Allocation * data[r][c]);
+
+    setDemand(c, Allocation);
+    setSupply(r, Allocation);
+
+    if(getSupply(r) == 0){
+        rowAvil--;
+        deleteRow(r);
+    }
+    if(getDemand(c) == 0){
+        colAvil--;
+        deleteCol(c);
+    }
+
+    pos = [r, c];
+    
+    allocationVec.push([pos, Allocation]);
+}
+
+function NorthWestMethod(){ //Repeat the Opration in NWM method
+    while(true){
+        NWC = getNWC();
+        r = NWC[0];
+        c = NWC[1]; 
+        operation(r, c);
+        display();
+        if(r==(row-2) && c==(col-2)) break;
+    }
 }
