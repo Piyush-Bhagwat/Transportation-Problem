@@ -1,3 +1,7 @@
+body{
+    text-align: center;
+}
+
 #TitleBar{
     background-color: rgb(211, 211, 211);
     padding: 3em;
@@ -17,4 +21,25 @@ h1{
 
 .InputBox{
     padding: 20px 0px;
+}
+
+.table{
+    text-align: center;
+    padding: 20px;
+}
+
+.contentBox{
+    margin: 10px 20px;
+    padding: 20px;
+}
+
+input{
+    height: 60px;
+    width: 60px;
+    color: rgb(19, 19, 19);
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.6em;
+
+    border-radius: 9px;
 }

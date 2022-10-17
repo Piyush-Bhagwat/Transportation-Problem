@@ -1,6 +1,9 @@
 const inpEl = document.querySelector("#Input");
 const tbodyEl = document.querySelector("tbody");
 const ansEl = document.querySelector("#solutionDiv");
+const ansTextEl = document.querySelector("#ansText");
+const allocEl = document.querySelector("#allocationDiv");
+
 var row = 0;
 var col = 0;
 var rowAvil;
@@ -29,6 +32,15 @@ function min(a, b){
     return a;
 }
 
+function max(a, b){
+    if(a<b){
+        return b;
+    }
+    else if(a>b){
+        return a;
+    }
+    return a;
+}
 // getting the Inputs--------------------------------------------------------------------------------------------------------
 
 function initalizeData() {
@@ -179,7 +191,7 @@ function addCol(matter, head, cls) {
 function display() {
     toAdd = "";
 
-    toAdd += `<table class="table table-striped">`;
+    toAdd += `<table class="table table-striped table-dark">`;
     for (j = 1; j <= row; j++) {
         if (j == 1) {
             toAdd += `<tr>`;
@@ -242,14 +254,14 @@ function display() {
 // Logics--------------------------------------------------------------------------------------------------------------------
 
 function getSupply(pos){
-    return supply[pos];
+    return parseInt(supply[pos]);
 }
 
 function setSupply(pos, valToSub){
     supply[pos]  -= valToSub;
 }
 function getDemand(pos){
-    return demand[pos];
+    return parseInt(demand[pos]);
 }
 
 function setDemand(pos, valToSub){
@@ -257,15 +269,21 @@ function setDemand(pos, valToSub){
 }
 
 function getAllocations(r,c){ //get the allocation the pirticular cell
-    return min(supply[r], demand[c]);
+    return min(getSupply(r), getDemand(c));
+}
+
+function getRemaint(r, c){
+    return max(getSupply(r), getDemand(c));
 }
 
 function solve(){
-    update();
+    update(); //Problem: this wont update second time cause the supplyDemamndAdjust will change the no of row and col
     supplyDemandAdjust();
     display();
 
     NorthWestMethod();
+
+    showAnswer();
 }
 
 function supplyDemandAdjust(){
@@ -382,4 +400,24 @@ function NorthWestMethod(){ //Repeat the Opration in NWM method
         display();
         if(r==(row-2) && c==(col-2)) break;
     }
+}
+
+
+
+function showAnswer(){
+    toAdd='';
+    allocEl.innerHTML += `<h2>Allocations: </h2>`;
+    toAdd += `<h4>`;
+    for(i=0; i<allocationVec.length; i++){
+        pos = allocationVec[i][0];
+        allo = allocationVec[i][1];
+             
+        toAdd += ` X(${pos[0]+1}, ${pos[1]+1}): ${allo} , `;
+        if((i+1)%3 == 0) toAdd += `</h4> <h4>`;
+    }
+    toAdd += `</h4>`;
+    allocEl.innerHTML += toAdd;
+
+    allocEl.innerHTML += `<h5>The final answer we get is ${ans}</h5>`;
+    ansTextEl.innerHTML += `${ans}`;
 }
