@@ -10,6 +10,9 @@ var rowAvil;
 var colAvil;
 var ans=0;
 
+var MAX_NUM = 1000;
+var MIN_NUM = -1000;
+
 // var inpBox = `<input type="text" name>`;
 var method = 0;
 // Data Variables
@@ -18,6 +21,9 @@ var data = [];
 var supply = [];
 var demand = [];
 var allocationVec = [];
+
+var sPenalty =[];
+var dPenalty =[];
 
 
 
@@ -309,6 +315,9 @@ function solve(){
     else if(method==4){
         columnMinima();
     }
+    else if(method==5){
+        VAB();
+    }
     
     showAnswer();
 }
@@ -593,6 +602,170 @@ function rowMinima(){
             display();
         }
     } 
+}
+
+// --------------------------Penaulty------------------------------------
+
+function allSameCol(c, val){ //Returns true if the Column have all same values
+    for(let i=0; i<row-1; i++){
+        if(data[i][c] == -1) continue;
+        if(data[i][c] != val) return false;
+    }
+    return true;
+}   
+
+function allSameRow(r, val){//Return true if row have all same values
+    for(let i=0; i<col-1; i++){
+        if(data[r][i] == -1) continue;
+        if(data[r][i] != val) return false;
+    }
+    return true;
+}
+
+function supplyPenalty(r){ //fills up the supply penalty
+    if(supply[r] == -1){
+        sPenalty.push(-1);
+        return;
+    }
+
+    let min1= MAX_NUM;
+    let min2=MAX_NUM;
+    for(i=0; i<col-1; i++){
+        if(data[r][i] == -1){
+            continue;
+        }
+        if(data[r][i]<min1){
+            min1=data[r][i];
+        }
+    }
+
+    if(allSameRow(r, min1)){
+        sPenalty.push(0);
+        return;
+    }
+
+    for(let i=0; i<col-1; i++){
+        if(data[r][i] == -1){
+            continue;
+        }
+        if(min1<data[r][i] && data[r][i]<min2 && !(min1 == data[r][i])){
+            min2 = data[r][i];
+        }
+    }
+    sPenalty.push(min2-min1);
+} 
+
+function demandPenalty(c){ //fills up the demand penulty
+    if(demand[c] == -1){
+        dPenalty.push(-1);
+        return;
+    }
+    let min1= MAX_NUM, min2=MAX_NUM;
+    for(i=0; i<row-1; i++){
+        if(data[i][c] == -1) continue;
+        if(data[i][c]<min1){
+            min1=data[i][c];
+        }
+    }
+
+    if(allSameCol(c, min1)){
+        dPenalty.push(0);
+        return;
+    }
+
+    for(let i=0; i<row-1; i++){
+        if(data[i][c] == -1) continue;
+        if(min1<data[i][c] && data[i][c]<min2 && !(min1 == data[i][c])){
+            min2 = data[i][c];
+        }
+    }
+    dPenalty.push(min2-min1);
+}
+
+function getPenalty(){ // returns the maxPenulty
+    maxPen = MIN_NUM;
+    prevAlloc=0;
+    curAllo=0;
+
+    val=0;
+    wt='';
+    toAdd='';
+    toAdd += "<h4>supply: ";
+    for(let i=0; i<row-1; i++){
+        curAllo = getAllocations(getRowMinima(i), i);
+        supplyPenalty(i);
+        if(sPenalty[i] == -1){
+            toAdd += "X ";
+        }
+        else toAdd += `${sPenalty[i]} `;
+
+        if(sPenalty[i]>maxPen){
+            maxPen = sPenalty[i];
+            prevAlloc = curAllo;
+            val = i; wt = 's';
+        }
+        else if(sPenalty[i] == maxPen){
+            if(curAllo > prevAlloc){
+                maxPen = sPenalty[i];
+                prevAlloc = curAllo;
+                val = i; wt = 's';
+            }
+        }
+    }
+    toAdd += "</h4>";
+
+    toAdd += "<h4>Demand: ";
+    for(let i=0; i<col-1; i++){
+        curAllo = getAllocations(i, getColMinima(i));
+        demandPenalty(i);
+        if(dPenalty[i] == -1){
+            toAdd += "X ";
+        }
+        else toAdd += ` ${dPenalty[i]} `;
+
+        if(dPenalty[i]>maxPen){
+            maxPen = dPenalty[i];
+            prevAlloc = curAllo;
+            val = i; wt = 'd';
+        }
+        else if(dPenalty[i] == maxPen){
+            if(curAllo > prevAlloc){
+                maxPen = dPenalty[i];
+                prevAlloc = curAllo;
+                val = i; wt = 'd';
+            }
+        }
+    }
+    toAdd += "</h4>";
+
+    toAdd += `<h4>Max Penalty is: ${wt}${maxPen}</h4>`;
+
+    ansEl.innerHTML += toAdd;
+    pair = [wt, val];
+    return pair;
+}
+
+function VAB(){
+    while(rowAvil > 1 && colAvil>1){
+        sPenalty=[];
+        dPenalty=[];
+        penInfo = getPenalty();
+        wh = penInfo[0];
+        pos = penInfo[1];
+
+        if(wh == 'd'){
+            r = getColMinima(pos);
+            operation(r, pos);
+            display();   
+        }
+        else if(wh == 's'){
+            c = getRowMinima(pos);
+            operation(pos, c);
+            display(); 
+        } 
+    }
+    leastCostMethod();
+
 }
 
 function showAnswer(){
