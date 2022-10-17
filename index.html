@@ -25,45 +25,59 @@
             <h1>Transportation Problem Solver</h1>
         </div>
 
-        <div class="contentBox">
-            <div id="Input">
-                <div class="InputBox">
-                    <h4>Grid Size:</h4>
-                    <input type="text" id="rowInp" /> X
-                    <input type="text" id="colInp" />
+        <div class="container">
+            <div class="row">
+                <div class="col"></div>
+
+                <div class="col-8">
+                    <div class="contentBox">
+                        <div id="Input">
+                            <div class="InputBox"> <!--GridInput-->
+                                <h4>Grid Size:</h4>
+                                <input type="text" id="rowInp" /> X
+                                <input type="text" id="colInp" />
+                            </div>
+
+                            <div class="InputBox"> <!--MethodButton-->
+                                <h4>Method:</h4>
+                                <select name="method">
+                                    <option value="1">North West</option>
+                                    <option value="2">Least Cost</option>
+                                    <option value="3">Row Minima</option>
+                                    <option value="4">Col Minima</option>
+                                    <option value="5">Penulty Method</option>
+                                </select>
+                            </div>
+
+                            <div class="InputBox"> <!--Buttons-->
+                                <button onclick="createGrid()">
+                                    Create Grid
+                                </button>
+
+                                <button onclick="solve()">Solve</button>
+                            </div>
+
+                            <div class="InputBox"> <!--AnswerBox-->
+                                <h4 id="ansText">Answer:</h4>
+                            </div>
+                        </div>
+
+                        <div> <!--DataInputTable-->
+                            <h3>Table:</h3>
+
+                            <table class="table table-dark table-striped">
+                                <tbody></tbody>
+                            </table>
+                        </div>
+
+                        <div class="output">
+                            <div id="solutionDiv"></div>
+                            <div id="allocationDiv"></div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="InputBox">
-                    <h4>Method:</h4>
-                    <select name="method">
-                        <option value="1">North West</option>
-                        <option value="2">Least Cost</option>
-                        <option value="3">Row Minima</option>
-                        <option value="4">Col Minima</option>
-                        <option value="5">Penulty Method</option>
-                    </select>
-                </div>
-
-                <div class="InputBox">
-                    <button onclick="createGrid()">Create Grid</button>
-
-                    <button onclick="solve()">Solve</button>
-                </div>
-
-                <div class="InputBox"><h4 id="ansText">Answer:</h4></div>
-            </div>
-
-            <div>
-                <h3>Table:</h3>
-
-                        <table class="table table-dark table-striped">
-                            <tbody></tbody>
-                        </table>
-            </div>
-
-            <div>
-                <div id="solutionDiv"></div>
-                <div id="allocationDiv"></div
+                <div class="col"></div>
             </div>
         </div>
 

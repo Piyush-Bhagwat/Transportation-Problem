@@ -219,7 +219,10 @@ function display() {
                     toAdd += addCol("", "h", "dataHead");
                     break;
                 }
-
+                if(demand[i-1]==-1){
+                    toAdd += addCol('X', 'd',"dataCrossed");
+                    continue;
+                }
                 toAdd += addCol(demand[i - 1], "d", "dataDemand");
             }
             toAdd += `</tr>`;
@@ -232,8 +235,17 @@ function display() {
                 toAdd += addCol("S" + j, "h", "dataHead");
             }
             if (i == col) {
+                if(supply[j-1]==-1){
+                    toAdd += addCol('X', 'd',"dataCrossed");
+                    continue;
+                }
                 toAdd += addCol(supply[j - 1], "d", "dataSupply");
                 break;
+            }
+
+            if(data[j-1][i-1]==-1){
+                toAdd += addCol('X', 'd',"dataCrossed");
+                continue;
             }
 
             toAdd += addCol(data[j - 1][i - 1], "d", "dataBody");
@@ -418,6 +430,6 @@ function showAnswer(){
     toAdd += `</h4>`;
     allocEl.innerHTML += toAdd;
 
-    allocEl.innerHTML += `<h5>The final answer we get is ${ans}</h5>`;
+    allocEl.innerHTML += `<h2>The final answer we get is ${ans}</h2>`;
     ansTextEl.innerHTML += `${ans}`;
 }
