@@ -289,12 +289,21 @@ function getRemaint(r, c){
 }
 
 function solve(){
+    ansEl.innerHTML = '';
+    allocEl.innerHTML = '';
+    ansTextEl.innerHTML = '';
+
     update(); //Problem: this wont update second time cause the supplyDemamndAdjust will change the no of row and col
     supplyDemandAdjust();
     display();
 
-    NorthWestMethod();
-
+    if(method==1){
+        NorthWestMethod();
+    }
+    else if(method==2){
+        leastCostMethod();
+    }
+    
     showAnswer();
 }
 
@@ -349,22 +358,6 @@ function supplyDemandAdjust(){
     delete i;
 }
 
-function getNWC(){ //get the northWestCorner cell
-    pr = [-1, -1];
-    for(i=0; i<(row-1); i++){
-        for(j=0; j<(col-1); j++){
-            if(data[i][j] != -1){
-                pr[0]=i;
-                pr[1]=j;
-                return pr;
-            }
-        }
-    }
-    delete i;
-    delete j;
-    return pr;
-}
-
 function deleteCol(c){
     for(i=0; i<row-1; i++){
         data[i][c]=-1;
@@ -403,6 +396,23 @@ function operation(r, c){ //Main operation on indivual Cells
     allocationVec.push([pos, Allocation]);
 }
 
+//  ---------------------North West Corner Cell------------------------------------------------------
+function getNWC(){ //get the northWestCorner cell
+    pr = [-1, -1];
+    for(i=0; i<(row-1); i++){
+        for(j=0; j<(col-1); j++){
+            if(data[i][j] != -1){
+                pr[0]=i;
+                pr[1]=j;
+                return pr;
+            }
+        }
+    }
+    delete i;
+    delete j;
+    return pr;
+}
+
 function NorthWestMethod(){ //Repeat the Opration in NWM method
     while(true){
         NWC = getNWC();
@@ -413,6 +423,74 @@ function NorthWestMethod(){ //Repeat the Opration in NWM method
         if(r==(row-2) && c==(col-2)) break;
     }
 }
+
+// ---------------------------------------------Least Cost Method ---------------------------------------------
+
+function isFinished(){ //Returns true if the problem is solved 
+    for(i=0; i<row-1; i++){
+        for(j=0; j<col-1; j++){
+            if(data[i][j] != -1) return false;
+        }
+    }
+
+    delete i;
+    delete j;
+    return true;
+}
+
+function LCMCell(){
+    minVal = 100000;
+    prevAlloc=0;
+    prevRemai=0;
+    r=0, c=0;
+    coordinates=[];
+
+    for(i=0; i<row-1; i++){
+        for(j=0; j<col-1; j++){
+            if(data[i][j]==-1) continue;
+
+            if(data[i][j] < minVal){
+                r=i; c=j;
+                minVal = data[i][j];
+                prevAlloc = getAllocations(i, j);
+                prevRemai = getRemaint(i, j);
+            }
+            else if(data[i][j] == minVal){
+                if(prevAlloc < getAllocations(i, j)){
+                    r=i; c=j;
+                    minVal = data[i][j];
+                    prevAlloc = getAllocations(i, j); 
+                    prevRemai = getRemaint(i, j);
+                }
+                else if (prevAlloc == getAllocations(i, j)){
+                    if(getRemaint(i, j)<prevRemai){
+                        r=i; c=j;
+                        minVal = data[i][j];
+                        prevAlloc = getAllocations(i, j); 
+                        prevRemai = getRemaint(i, j);
+                    }
+                }
+            }
+        }
+    }
+
+    coordinates[0]=r;
+    coordinates[1]=c;
+    delete i;
+    delete j;
+    return coordinates;
+}
+
+function leastCostMethod(){
+    while(!isFinished()){
+        pos = LCMCell();
+        r = pos[0]; 
+        c= pos[1];
+        operation(r, c);
+        display();
+    }
+}
+
 
 
 
