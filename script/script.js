@@ -11,8 +11,7 @@ var colAvil;
 var ans=0;
 
 // var inpBox = `<input type="text" name>`;
-
-var method = document.querySelector("select").value;
+var method = 0;
 // Data Variables
 
 var data = [];
@@ -66,6 +65,7 @@ function initalizeData() {
 }
 
 function update() { //updates the arrays with right values
+    method = document.querySelector("select").value;
     for (i = 0; i < row - 1; i++) {
         data[i] = [];
         for (j = 0; j < col - 1; j++) {
@@ -303,6 +303,12 @@ function solve(){
     else if(method==2){
         leastCostMethod();
     }
+    else if(method==3){
+        rowMinima();
+    }
+    else if(method==4){
+        columnMinima();
+    }
     
     showAnswer();
 }
@@ -491,8 +497,103 @@ function leastCostMethod(){
     }
 }
 
+// ---------------------Minima--------------------------------------
 
+function getColMinima(c){ //return the pos of the least element in the column
+    minVal = 10000;
+    r = 0;
+    prevAlloc=0;
+    preRemain=0;
+    for(i=0; i<row-1; i++){
+        if(data[i][c] == -1) continue;
 
+        if(data[i][c]<minVal){
+            minVal = data[i][c];
+            prevAlloc = getAllocations(i, c);
+            preRemain = getRemaint(i, c);
+            r = i;
+        }   
+        else if(data[i][c]==minVal){ // select the max Allocations
+            if(getAllocations(i, c) > prevAlloc){
+                minVal = data[i][c];
+                prevAlloc = getAllocations(i, c);
+                preRemain = getRemaint(i, c);
+                r = i;
+            }
+            else if(getAllocations(i, c)==prevAlloc){ // if allocations are same select with less remainder
+                if(getRemaint(i, c) < preRemain){
+                    minVal = data[i][c];
+                    prevAlloc = getAllocations(i, c);
+                    preRemain = getRemaint(i, c);
+                    r = i;
+                }
+            }
+        }
+    }
+
+    delete i;
+    return r;
+}
+
+function getRowMinima(r){// return the pos of the least element ii the row
+    minVal = 100000;
+    c = 0;
+    prevAlloc=0;
+    preRemain=0;
+
+    for(i=0; i<col-1; i++){
+        if(data[r][i] == -1) continue;
+
+        if(data[r][i]<minVal){
+            minVal = data[r][i];
+            prevAlloc = getAllocations(r, i);
+            preRemain = getRemaint(r, i);
+            c = i;
+        }   
+        else if(data[r][i]==minVal){ 
+            if(getAllocations(r, i) > prevAlloc){// select the max Allocations
+                minVal = data[r][i];
+                prevAlloc = getAllocations(r, i);
+                preRemain = getRemaint(r, i);
+                c = i;
+            }
+            else if(getAllocations(r, i)==prevAlloc){ // if allocations are same select with less remainder
+                if(getRemaint(r, i) < preRemain){
+                    minVal = data[r][i];
+                    prevAlloc = getAllocations(r, i);
+                    preRemain = getRemaint(r, i);
+                    c = i;
+                }
+            }
+        }
+    }
+
+    delete i;
+    return c;
+} 
+
+function columnMinima(){
+    for(let i=0; i<col-1; i++){
+        while(demand[i] != -1){
+            console.log("fuck");
+            r = getColMinima(i);
+            operation(r, i);
+            display();
+        }
+    }
+
+}   
+
+function rowMinima(){
+    for(let i=0; i<row-1; i++){
+        while(supply[i] != -1){
+            c = getRowMinima(i);
+            r = i;
+            operation(r, c);
+            display();
+        }
+    } 
+}
 
 function showAnswer(){
     toAdd='';
