@@ -42,6 +42,7 @@ h1{
 .table{
     text-align: center;
     padding: 20px;
+    margin: 20px;
 }
 
 .contentBox{
@@ -73,11 +74,20 @@ h1{
     margin: 1% 3%;
 }
 
+.tableDiv{
+    padding: 3%;
+}
+
 .select{
     padding: 5px;
     font-weight: 600;
     font-size: 1.2em;
     border-radius: 7px;
+}
+
+
+tbody{
+    display: inline-block;
 }
 
 input{
