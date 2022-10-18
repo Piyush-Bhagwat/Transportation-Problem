@@ -350,7 +350,6 @@ function supplyDemandAdjust(){
     for(i=0; i<col-1; i++){
         dem += parseInt(demand[i]);
     }
-    alert(''+sup +' '+dem )
 
     if(sup == dem){
         ansEl.innerHTML += `<h4>This Problem is Balanced(${dem})</h4>`;
