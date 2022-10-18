@@ -53,7 +53,7 @@
 
                             <div class="InputBox"> <!--MethodButton-->
                                 <h4>Method:</h4>
-                                <select name="method">
+                                <select name="method" class="select">
                                     <option value="1">North West</option>
                                     <option value="2">Least Cost</option>
                                     <option value="3">Row Minima</option>
@@ -73,6 +73,7 @@
                                 </button>
 
                                 <button onclick="solve()" class="btn btn-outline-light">Solve</button>
+                                <button onclick="location.reload()" class="btn btn-outline-danger">Reset</button>
                             </div>
 
                         </div>
@@ -86,6 +87,7 @@
                         </div>
 
                         <div class="output">
+                            <h2>Solution: </h2>
                             <div id="solutionDiv"></div>
                             <div id="allocationDiv"></div>
                         </div>

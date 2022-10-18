@@ -4,26 +4,31 @@ const ansEl = document.querySelector("#solutionDiv");
 const ansTextEl = document.querySelector("#ansText");
 const allocEl = document.querySelector("#allocationDiv");
 
-var row = 0;
-var col = 0;
-var rowAvil;
-var colAvil;
+var row = 4;
+var col = 5;
+var rowAvil = 3;
+var colAvil = 4;
 var ans=0;
+var noOfSolve=0;
 
 var MAX_NUM = 1000;
 var MIN_NUM = -1000;
 
 // var inpBox = `<input type="text" name>`;
-var method = 0;
+var method = 5;
 // Data Variables
 
 var data = [];
+
 var supply = [];
 var demand = [];
 var allocationVec = [];
 
 var sPenalty =[];
 var dPenalty =[];
+
+var copySupply = supply;
+var copyDemand = demand;
 
 
 
@@ -89,12 +94,14 @@ function update() { //updates the arrays with right values
         x = getVal("d", i + 1);
         demand[i] = x;
     }
+
+
 }
 
 function getVal(r, c) {//get values fromt the input boxes
     n = "" + r + c;
     x = document.getElementById(n);
-    return x.value;
+    return parseInt(x.value);
 }
 
 function inpBox(name) { //maeks an input bo with proper ID
@@ -299,13 +306,18 @@ function reset(){
     ans=0;
     row = parseInt(document.getElementById("rowInp").value) + 1;
     col = parseInt(document.getElementById("colInp").value) + 1;
+    rowAvil = row-1;
+    colAvil = col-1;
+    
+    supply=[];
+    demand=[];
     allocationVec = [];  
+    update();
 }
 
 function solve(){
     
     reset();
-    update(); //Problem: this wont update second time cause the supplyDemamndAdjust will change the no of row and col
     supplyDemandAdjust();
     display();
 
@@ -338,6 +350,7 @@ function supplyDemandAdjust(){
     for(i=0; i<col-1; i++){
         dem += parseInt(demand[i]);
     }
+    alert(''+sup +' '+dem )
 
     if(sup == dem){
         ansEl.innerHTML += `<h4>This Problem is Balanced(${dem})</h4>`;
