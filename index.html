@@ -19,9 +19,12 @@
         ></script>
 
         <!-- fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;900&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;900&display=swap"
+            rel="stylesheet"
+        />
 
         <link rel="stylesheet" href="Css/Style.css" />
     </head>
@@ -35,66 +38,69 @@
                     <img class="titleImg" src="images/titleImage.webp" alt="" />
                 </div>
             </div>
-            
         </div>
 
-        <div class="container">
-            <div class="row">
-                <div class="col"></div>
-
-                <div class="col-md-auto">
-                    <div class="contentBox">
-                        <div id="Input">
-                            <div class="InputBox"> <!--GridInput-->
-                                <h4>Grid Size:</h4>
-                                <input type="text" id="rowInp" class="gridInput" /> X
-                                <input type="text" id="colInp" class="gridInput" />
-                            </div>
-
-                            <div class="InputBox"> <!--MethodButton-->
-                                <h4>Method:</h4>
-                                <select name="method" class="select">
-                                    <option value="1">North West</option>
-                                    <option value="2">Least Cost</option>
-                                    <option value="3">Row Minima</option>
-                                    <option value="4">Col Minima</option>
-                                    <option value="5">Penulty Method</option>
-                                </select>
-                            </div>
-
-                            <div class="InputBox"> <!--AnswerBox-->
-                                <h4 >Answer:</h4>
-                                <h4 id="ansText"></h4>
-                            </div>
-
-                            <div class="actionButton"> <!--Buttons-->
-                                <button onclick="createGrid()" class="btn btn-outline-light">
-                                    Create Grid
-                                </button>
-
-                                <button onclick="solve()" class="btn btn-outline-light">Solve</button>
-                                <button onclick="location.reload()" class="btn btn-outline-danger">Reset</button>
-                            </div>
-
-                        </div>
-
-                        <div> <!--DataInputTable-->
-                            <h3>Table:</h3>
-
-                            <table class="table table-dark table-striped">
-                                <tbody></tbody>
-                            </table>
-                        </div>
-
-                        <div class="output">
-                            <h2>Solution: </h2>
-                            <div id="solutionDiv"></div>
-                            <div id="allocationDiv"></div>
-                        </div>
-                    </div>
+        <div class="contentBox">
+            <div id="Input">
+                <div class="InputBox">
+                    <!--GridInput-->
+                    <h4>Grid Size:</h4>
+                    <input type="text" id="rowInp" class="gridInput" /> X
+                    <input type="text" id="colInp" class="gridInput" />
                 </div>
 
-                <div class="col"></div>
+                <div class="InputBox">
+                    <!--MethodButton-->
+                    <h4>Method:</h4>
+                    <select name="method" class="select">
+                        <option value="1">North West</option>
+                        <option value="2">Least Cost</option>
+                        <option value="3">Row Minima</option>
+                        <option value="4">Col Minima</option>
+                        <option value="5">Penulty Method</option>
+                    </select>
+                </div>
+
+                <div class="InputBox">
+                    <!--AnswerBox-->
+                    <h4>Answer:</h4>
+                    <h4 id="ansText"></h4>
+                </div>
+
+                <div class="actionButton">
+                    <!--Buttons-->
+                    <button
+                        onclick="createGrid()"
+                        class="btn btn-outline-light"
+                    >
+                        Create Grid
+                    </button>
+
+                    <button onclick="solve()" class="btn btn-outline-light">
+                        Solve
+                    </button>
+                    <button
+                        onclick="location.reload()"
+                        class="btn btn-outline-danger"
+                    >
+                        Reset
+                    </button>
+                </div>
+            </div>
+
+            <div>
+                <!--DataInputTable-->
+                <h3>Table:</h3>
+
+                <table class="table table-dark table-striped">
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <div class="output">
+                <h2>Solution:</h2>
+                <div id="solutionDiv"></div>
+                <div id="allocationDiv"></div>
             </div>
         </div>
 
