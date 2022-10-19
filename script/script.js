@@ -3,6 +3,7 @@ const tbodyEl = document.querySelector("tbody");
 const ansEl = document.querySelector("#solutionDiv");
 const ansTextEl = document.querySelector("#ansText");
 const allocEl = document.querySelector("#allocationDiv");
+const scrollDownEl = document.querySelector("#scrollDown");
 
 var row = 4;
 var col = 5;
@@ -141,7 +142,7 @@ function addTitleRow(el, c) {
             toAdd += addCol("", "d", "dataHead");
         }
         if (i == c) {
-            toAdd += addCol("Supply", "h", "dataHead");
+            toAdd += addCol("S", "h", "dataHead");
             break;
         }
 
@@ -181,7 +182,7 @@ function lastRow(el, c) {
     toAdd += `<tr>`;
     for (i = 1; i <= c; i++) {
         if (i == 1) {
-            toAdd += addCol("Demand", "h", "dataHead");
+            toAdd += addCol("D", "h", "dataHead");
         }
         if (i == c) {
             toAdd += addCol("", "h", "dataHead");
@@ -303,6 +304,7 @@ function reset(){
     ansEl.innerHTML = '';
     allocEl.innerHTML = '';
     ansTextEl.innerHTML = '';
+    scrollDownEl.innerHTML = '';
     ans=0;
     row = parseInt(document.getElementById("rowInp").value) + 1;
     col = parseInt(document.getElementById("colInp").value) + 1;
@@ -802,6 +804,7 @@ function showAnswer(){
 
     allocEl.innerHTML += `<h2>The final answer we get is ${ans}</h2>`;
     ansTextEl.innerHTML += `${ans}`;
+    scrollDownEl.innerHTML += `<h3>Scroll down for detailed steps</h3>`;
     toAdd="";
     delete toAdd;
 }

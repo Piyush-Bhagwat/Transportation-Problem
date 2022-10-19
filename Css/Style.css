@@ -22,6 +22,14 @@ h1{
     line-height: 1.5;
 }
 
+p{
+    font-size: 1.3em;
+}
+
+.info{
+    padding: 2% 5%;
+}
+
 .titleContent{
     padding: 4% 0%;
 }
@@ -167,8 +175,8 @@ input{
     }
 
     input{
-        height: 40px;
-        width: 40px;
+        height: 30px;
+        width: 30px;
         text-align: center;
         font-size: 1.2em;
     }
