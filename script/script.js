@@ -204,7 +204,7 @@ function addCol(matter, head, cls) {
 function display() {
     toAdd = "";
 
-    toAdd += `<table class="table table-striped table-dark">`;
+    toAdd += `<table class="table table-light">`;
     for (j = 1; j <= row; j++) {
         if (j == 1) {
             toAdd += `<tr>`;
@@ -794,7 +794,7 @@ function showAnswer(){
         pos = allocationVec[i][0];
         allo = allocationVec[i][1];
              
-        toAdd += ` X(${pos[0]+1}, ${pos[1]+1}): ${allo} , `;
+        toAdd += ` X(${pos[0]+1}, ${pos[1]+1}): ${allo} &emsp;`;
         if((i+1)%3 == 0) toAdd += `</h4> <h4>`;
     }
     toAdd += `</h4>`;

@@ -31,6 +31,14 @@ h1{
     border-radius: 3%;
 }
 
+.dataSupply, .dataDemand{
+    background-color: #D5E5F7 !important;
+}
+
+.dataCrossed{
+    background-color: crimson !important;
+}
+
 .InputBox{
     padding: 2% 6%;
     display: inline-block;
@@ -40,6 +48,10 @@ h1{
     text-align: center;
     padding: 20px;
     margin: 20px;
+}
+
+td, th{
+    padding: 20px !important;
 }
 
 .contentBox{
