@@ -64,11 +64,14 @@ h1{
     font-size: 1.2em;
  
 }
-/* @media (max-width: 1000px) {
-        .gridInput{
-           
-        }
-} */
+
+@media (max-width: 1000px) {
+    h1{
+        font-size: 3em;
+        font-weight: 900;
+        line-height: 1.2;
+    }
+}
 
 
 .actionButton{
