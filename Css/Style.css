@@ -146,6 +146,11 @@ input{
     #TitleBar{
         padding: 2% 2%;
     }
+
+    .table{
+        margin: 20px 0px;
+    }
+
     tbody{
         display: contents;
     }
@@ -166,9 +171,5 @@ input{
         width: 40px;
         text-align: center;
         font-size: 1.2em;
-  
     }
 }
-
-
-
