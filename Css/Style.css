@@ -76,21 +76,6 @@ td, th{
  
 }
 
-@media (max-width: 1000px) {
-    h1{
-        font-size: 2em;
-        font-weight: 900;
-        line-height: 1.2;
-    }
-    .titleImg{
-        width: 90%;
-        border-radius: 3%;
-        display: none;
-    }
-    #TitleBar{
-        padding: 2% 2%;
-    }
-}
 
 .actionButton{
     padding: 30px;
@@ -146,4 +131,44 @@ input{
 
     border-radius: 9px;
 }
+
+@media (max-width: 1000px) {
+    h1{
+        font-size: 2em;
+        font-weight: 900;
+        line-height: 1.2;
+    }
+    .titleImg{
+        width: 90%;
+        border-radius: 3%;
+        display: none;
+    }
+    #TitleBar{
+        padding: 2% 2%;
+    }
+    tbody{
+        display: contents;
+    }
+
+    table { 
+        table-layout:fixed;
+    }
+
+    td, th{
+        padding: 8px !important;
+        overflow: hidden; 
+        text-overflow: ellipsis; 
+        word-wrap: break-word;
+    }
+
+    input{
+        height: 40px;
+        width: 40px;
+        text-align: center;
+        font-size: 1.2em;
+  
+    }
+}
+
+
 
