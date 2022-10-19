@@ -1,3 +1,4 @@
+
 body{
     text-align: center;
     color: #D5E5F7;
@@ -20,10 +21,6 @@ h1{
     font-weight: 900;
     line-height: 1.5;
 }
-
-/* .value{
-    padding: 0px 40px;
-} */
 
 .titleContent{
     padding: 4% 0%;
@@ -60,11 +57,19 @@ h1{
     
 }
 
+
 .gridInput{
     height: 40px;
     width: 40px;
     font-size: 1.2em;
+ 
 }
+/* @media (max-width: 1000px) {
+        .gridInput{
+           
+        }
+} */
+
 
 .actionButton{
     padding: 30px;
